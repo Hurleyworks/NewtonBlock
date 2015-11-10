@@ -14,10 +14,10 @@ void MeshOps::centerVertices(TriMeshRef & mesh)
 	// need an approxiamtely equal here. Does glm have one?
 	if ( offset == vec3(0.0f)) return;
 
-	int pointCount = mesh->getNumVertices();
+	size_t pointCount = mesh->getNumVertices();
 	vec3 * positions = mesh->getPositions<3>();
 
-	for (int i = 0; i < pointCount; i++)
+	for (size_t i = 0; i < pointCount; i++)
 		positions[i] -= offset;
 
 	// recalc the bounding box later

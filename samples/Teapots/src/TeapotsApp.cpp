@@ -35,6 +35,7 @@ void TeapotsApp::setup()
 	}
 	catch (std::exception & e)
 	{
+		gui->postWarningMessage("Fatal Error", "Setup failed");
 		ok = false;
 		return;
 	}
@@ -44,6 +45,8 @@ void TeapotsApp::setup()
 
 	gl::enableDepthRead();
 	gl::enableDepthWrite();
+
+	gui->postInfoMessage("Instructions", "Use RMB to fire teapot projectiles while simulation is running");
 }
 
 void TeapotsApp::update()

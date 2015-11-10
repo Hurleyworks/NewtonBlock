@@ -101,4 +101,20 @@ void View::updatePerfGraph (float dt, float cpuTime)
    updateGraph (&cpuGraph, cpuTime);
 }
 
+void View::postInfoMessage(const std::string & title, const std::string & msg)
+{
+	auto dlg = new MessageDialog(this, MessageDialog::Type::Information, title, msg);
+	dlg->setCallback([](int result)
+	{
+		
+	});
+}
 
+void View::postWarningMessage(const std::string & title, const std::string & msg)
+{
+	auto dlg = new MessageDialog(this, MessageDialog::Type::Warning, title, msg);
+	dlg->setCallback([](int result)
+	{
+		
+	});
+}

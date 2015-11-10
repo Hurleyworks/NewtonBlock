@@ -26,6 +26,9 @@ class View : public nanogui::Screen
          setSize (size);
       }
 
+	  void postInfoMessage(const std::string & title, const std::string & msg);
+	  void postWarningMessage(const std::string & title, const std::string & msg);
+
       bool mouseMove (MouseEvent e);
       bool mouseDown (MouseEvent e);
       bool mouseDrag (MouseEvent e);

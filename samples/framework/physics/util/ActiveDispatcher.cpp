@@ -20,12 +20,12 @@ int ActiveDispatcher::dispatchBody(PhysicsBodyRef & pBody, PhysicsSceneRef & sce
 
 	try
 	{
-		// we're about to processed by the physics engine
+		// we're about to be processed by the physics engine
 		pBody->state.getState() |= PBodyState::BeingProcessed;
 
 		scene->processPhysicsBody(pBody);
 	}
-	catch (std::exception & e)
+	catch (std::exception & )
 	{
 	
 	}
