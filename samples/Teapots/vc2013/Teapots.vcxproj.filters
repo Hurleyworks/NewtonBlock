@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Source Files\framework">
+      <UniqueIdentifier>{b04603f3-3e31-46a4-9c66-577d66fb0c34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\framework\physics">
+      <UniqueIdentifier>{1dc1e49c-97c0-45f2-86b3-9c68c43557b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\framework\render">
+      <UniqueIdentifier>{4fcbe237-a1a5-47a8-82fb-b33a697a3174}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\framework\physics\util">
+      <UniqueIdentifier>{51df3e20-5526-41b5-8a3b-3a4efa2451a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\newton">
+      <UniqueIdentifier>{63648815-5136-4b0a-a516-ac10277ef224}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\TeapotsApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TeapotsApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\framework\render\Shadower.cpp">
+      <Filter>Source Files\framework\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\framework\physics\util\MeshOps.cpp">
+      <Filter>Source Files\framework\physics\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\framework\physics\util\ActiveDispatcher.cpp">
+      <Filter>Source Files\framework\physics\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\framework\physics\BodyDesc.cpp">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\framework\physics\BodyHandler.cpp">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\framework\physics\BodyOps.cpp">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\framework\physics\Entity.cpp">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\framework\physics\Listeners.cpp">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\framework\physics\PhysicsEngine.cpp">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\framework\physics\PhysicsHandler.cpp">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\framework\physics\PhysicsScene.cpp">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\framework\physics\SpaceTime.cpp">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\NewtonAPI.cpp">
+      <Filter>Source Files\newton</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\NewtonLib.cpp">
+      <Filter>Source Files\newton</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Standard.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TeapotsApp.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\render\ShaderSource.h">
+      <Filter>Source Files\framework\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\render\Shadower.h">
+      <Filter>Source Files\framework\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\util\Concurrent.h">
+      <Filter>Source Files\framework\physics\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\util\MeshOps.h">
+      <Filter>Source Files\framework\physics\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\util\MoveOnCopy.h">
+      <Filter>Source Files\framework\physics\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\util\SharedQueue.h">
+      <Filter>Source Files\framework\physics\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\util\ActiveDispatcher.h">
+      <Filter>Source Files\framework\physics\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\BodyDesc.h">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\BodyHandler.h">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\BodyOps.h">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\BodyState.h">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\Entity.h">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\Listeners.h">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\PhysicsBody.h">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\PhysicsData.h">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\PhysicsDefaults.h">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\PhysicsEngine.h">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\PhysicsHandler.h">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\PhysicsScene.h">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\SpaceTime.h">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\NewtonAPI.h">
+      <Filter>Source Files\newton</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
