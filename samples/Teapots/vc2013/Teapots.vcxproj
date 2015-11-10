@@ -205,6 +205,7 @@ _WIN32_VER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
   <ItemGroup>
     <ClCompile Include="..\..\..\NewtonAPI.cpp" />
     <ClCompile Include="..\..\..\NewtonLib.cpp" />
+    <ClCompile Include="..\..\framework\gui\ciNanoGui.cpp" />
     <ClCompile Include="..\..\framework\physics\BodyDesc.cpp" />
     <ClCompile Include="..\..\framework\physics\BodyHandler.cpp" />
     <ClCompile Include="..\..\framework\physics\BodyOps.cpp" />
@@ -218,9 +219,11 @@ _WIN32_VER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     <ClCompile Include="..\..\framework\physics\util\MeshOps.cpp" />
     <ClCompile Include="..\..\framework\render\Shadower.cpp" />
     <ClCompile Include="..\src\TeapotsApp.cpp" />
+    <ClCompile Include="..\src\View.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\NewtonAPI.h" />
+    <ClInclude Include="..\..\framework\gui\ciNanoGui.h" />
     <ClInclude Include="..\..\framework\physics\BodyDesc.h" />
     <ClInclude Include="..\..\framework\physics\BodyHandler.h" />
     <ClInclude Include="..\..\framework\physics\BodyOps.h" />
@@ -244,6 +247,7 @@ _WIN32_VER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     <ClInclude Include="..\include\Resources.h" />
     <ClInclude Include="..\src\Standard.h" />
     <ClInclude Include="..\src\TeapotsApp.h" />
+    <ClInclude Include="..\src\View.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

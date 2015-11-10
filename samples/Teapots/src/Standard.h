@@ -9,8 +9,8 @@ const std::string appName = "Teapots";
 const float appHeight = 800.0f;
 const float appWidth = 1.618f * appHeight;
 
-#define APP_MAJOR_VERSION      1
-#define APP_MINOR_VERSION      0
+#define APP_MAJOR_VERSION      0
+#define APP_MINOR_VERSION      8
 #define APP_POINT_RELEASE      0
 #define APP_VERSION (( APP_MAJOR_VERSION << 16) + ( APP_MINOR_VERSION << 8))
 

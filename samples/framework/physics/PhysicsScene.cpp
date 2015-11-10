@@ -33,7 +33,7 @@ PhysicsBodyRef PhysicsScene::createPhysicsBody()
 		}
 	}
 	
-	if (!pBody);
+	if (!pBody)
 	{
 		pBody = PhysicsBody::create();
 		bodies.push_back(pBody);
@@ -43,6 +43,8 @@ PhysicsBodyRef PhysicsScene::createPhysicsBody()
 
 		return bodies.back();
 	}
+
+	return nullptr;
 }
 
 void PhysicsScene::processPhysicsBody(PhysicsBodyRef & pBody)

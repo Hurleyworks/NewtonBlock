@@ -2,12 +2,13 @@
 #include "cinder/app/RendererGl.h"
 #include "cinder/CameraUi.h"
 #include "cinder/gl/gl.h"
+#include "cinder/Rand.h"
+#include "cinder/Ray.h"
 
 #include "Standard.h"
-
-using namespace ci;
-using namespace ci::app;
-using namespace std;
+#include "../../framework/physics/PhysicsHandler.h"
+#include "../../framework/render/Shadower.h"
+#include "View.h"
 
 class TeapotsApp : public App
 {
@@ -30,14 +31,31 @@ public:
 	void keyUp(KeyEvent event) override;
 
  private:
+	PhysicsHandler physics;
+	ViewRef gui;
+	double prevt = 0;
+	double cpuTime = 0;
+	bool usingGui = false;
+	Shadower shadower;
+	Rand rand;
+	bool ok = true;
+
 	CameraPersp	camera;
 	CameraUi cameraUI;
 	
 	ivec2 mousePos;
 	Color bgColor = Color(0.1f, 0.11f, 0.12f);
+	Color potColors[3];
 
-	void render();
+	gl::BatchRef teapot, teapotShadowed;
+	gl::BatchRef ground, groundShadowed;
+	ci::TriMeshRef teapotMesh;
+
+	void render(const gl::GlslProgRef & glsl = nullptr);
 	void cleanup();
+	void drawGrid(float size = 100.0f, float step = 10.0f);
+	void createBodies();
+	void emitBody(const Ray & mouseRay);
 
 };
 
