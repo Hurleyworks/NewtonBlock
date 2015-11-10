@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cinder>
+<block
+	name="ciNewtonDynamics"
+	id="com.hurleyworks.newtonblock"
+	author="Steve Hurley"
+	license="zlib-style license"
+	summary="Julio Jerez's Newton Dynamics library"
+	url="https://github.com/Hurleyworks/NewtonBlock"
+	git="https://github.com/Hurleyworks/NewtonBlock.git"
+	>
+	<supports os="macosx" />
+	<supports os="msw" />
+
+	<copyExclude>samples</copyExclude>
+	<header>NewtonAPI.h</header>
+	<source>NewtonAPI.cpp</source>
+	<source>NewtonLib.cpp</source>
+</block>
+</cinder>
