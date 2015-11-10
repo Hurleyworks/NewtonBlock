@@ -8,6 +8,7 @@ The samples require Microsoft Visual Studio 2013 or 2015
 
 https://github.com/cinder/Cinder
 
+
 For the samples to work out of the box, you need to clone this reposity so that it is at the same directory level as Cinder.
 
 some folder
@@ -28,7 +29,7 @@ some folder
 			
 			Teapots
 			
-		
+When creating your own projects, do not include the NewtonModule folder in your IDE  because all it's source files are already included in the amalagmated NewtonLib.cpp file
 	
 	
 
