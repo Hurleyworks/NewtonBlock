@@ -20,6 +20,8 @@ class BodyState
 	bool isEmitted() const { return (state_ & PBodyState::HasImpulseApplied) == PBodyState::HasImpulseApplied; }
 	bool isDeleted() const { return (state_ & PBodyState::Deleted) == PBodyState::Deleted; }
 	bool isRecycled() const { return (state_ & PBodyState::Recycled) == PBodyState::Recycled; }
+	bool isCreatedOnEngineThread() const { return (state_ & PBodyState::CreatedOnEngineThread) == PBodyState::CreatedOnEngineThread; }
+	bool isInstance() const { return (state_ & PBodyState::Instance) == PBodyState::Instance; }
 	bool isReady() const { return (isBeingProcessed() || 
 								   isDeleted() ||
 								   isRecycled() ||

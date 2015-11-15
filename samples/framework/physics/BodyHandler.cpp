@@ -16,9 +16,9 @@ void BodyHandler::processPhysicsBody(PhysicsBodyRef & pBody, EngineState engineS
 {
  	if (!pBody) return;
 
-	// when engine is running Newton body creation and
-	// destruction *must* be done on Newton's thread
-	if (engineState == EngineState::Running)
+	// bodies created on the engine thread while the engine is running
+	// must also be destroyed on the engine thread
+	if (engineState == EngineState::Running || pBody->state.isCreatedOnEngineThread())
 	{
 		// has been deleted 
 		if (pBody->state.isDeleted())
@@ -95,6 +95,8 @@ void BodyHandler::resetPhysicsProperties(PhysicsBodyRef & pBody)
 
 void BodyHandler::onPostPhysicsUpdate(void * const userData, bool abort, float timeStep)
 {
+	// Thsi call comes on Newton's thread
+
 	if (abort) return;
 
 	while (!pendingAdds.empty())
@@ -103,6 +105,9 @@ void BodyHandler::onPostPhysicsUpdate(void * const userData, bool abort, float t
 		pendingAdds.pop(newBody);
 		if (newBody)
 		{
+			// bodies created on the engine thread must be flagged so they 
+			// can be destroyed on the same thread
+			newBody->state.getState() |= PBodyState::CreatedOnEngineThread;
 			processNewBody(newBody);
 		}
 	}
@@ -144,8 +149,13 @@ void BodyHandler::processNewBody(PhysicsBodyRef & pBody)
 				throw std::runtime_error("Could not create a NewtonBody!");
 			}
 
-			NewtonCollisionSetUserData(collision, pBody.get());
-			NewtonDestroyCollision(collision);
+			// don't touch the collision object if we're an instance!!!!
+			if (!pBody->state.isInstance())
+			{
+				NewtonCollisionSetUserData(collision, pBody.get());
+				NewtonDestroyCollision(collision);
+			}
+			
 
 			// lower the being processed flag
 			if (pBody->state.isBeingProcessed())
@@ -169,6 +179,9 @@ void BodyHandler::processBodyRemoval(PhysicsBodyRef & pBody)
 
 	pBody->userData = nullptr;
 
+	if (pBody->state.isCreatedOnEngineThread())
+		pBody->state.getState() ^= PBodyState::CreatedOnEngineThread;
+
 	// we're not in the engine
 	pBody->state.getState() ^= PBodyState::InEngine;
 
@@ -177,5 +190,6 @@ void BodyHandler::processBodyRemoval(PhysicsBodyRef & pBody)
 
 	// we're officially reycled
 	pBody->state.getState() |= PBodyState::Recycled;
+
 }
 

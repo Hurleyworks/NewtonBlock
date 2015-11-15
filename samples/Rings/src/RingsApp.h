@@ -47,6 +47,7 @@ public:
 	Color bgColor = Color(0.1f, 0.11f, 0.12f);
 	Color potColors[3];
 
+	PhysicsBodyRef sourceBody = nullptr; // instance source
 	gl::BatchRef torus, torusShadowed;
 	gl::BatchRef pole, poleShadowed;
 	ci::TriMeshRef torusMesh;

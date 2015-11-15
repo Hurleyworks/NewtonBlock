@@ -151,6 +151,8 @@ static const char* PBodyStateTable[] =
 	"HasImpulseApplied",
 	"Deleted",
 	"Recycled",
+	"CreatedOnEngineThread",
+	"Instance",
 	"Invalid"
 };
 
@@ -164,7 +166,9 @@ struct PBodyState
 		HasImpulseApplied = 1 << 3,
 		Deleted = 1 << 4,
 		Recycled = 1 << 5,
-		Invalid = 1 << 6
+		CreatedOnEngineThread = 1 << 6,
+		Instance = 1 << 7,
+		Invalid = 1 << 8
 	};
 
 	union

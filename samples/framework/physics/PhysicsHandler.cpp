@@ -47,12 +47,15 @@ void PhysicsHandler::init()
 	physicsEngine = PhysicsEngine::create(world);
 }
 
-PhysicsBodyRef PhysicsHandler::addBody(const ci::TriMeshRef & triMesh, const BodyDesc & bodyDesc, const SpaceTime & st)
+PhysicsBodyRef PhysicsHandler::addBody(const ci::TriMeshRef & triMesh, const BodyDesc & bodyDesc, const SpaceTime & st, bool isInstance)
 {
 	PhysicsBodyRef pBody = physicsScene->createPhysicsBody();
 	pBody->triMesh = triMesh;
 	pBody->desc = bodyDesc;
 	pBody->st = st;
+
+	if (isInstance)
+		pBody->state.getState() |= PBodyState::Instance;
 
 	// async call to process body in the physics engine
 	dispatcher.call(&ActiveDispatcher::dispatchBody, pBody, physicsScene, physicsEngine->getEngineState());

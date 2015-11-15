@@ -31,6 +31,13 @@ NewtonCollision * BodyOps::createCollisionShape(PhysicsBodyRef & pBody)
 	if (!pBody->triMesh) return nullptr;
 	if (!pBody->triMesh->getNumTriangles()) return nullptr;
 	if (!pBody->triMesh->getNumVertices()) return nullptr;
+
+	// reuse the source's collision shape if we're an instance
+	if (pBody->state.isInstance() && pBody->instancedFrom)
+	{
+		NewtonBody * const newtonBody = (NewtonBody*)pBody->instancedFrom->userData;
+		return newtonBody ? NewtonBodyGetCollision(newtonBody) : nullptr;
+	}
 	
 	switch (pBody->desc.shape)
 	{

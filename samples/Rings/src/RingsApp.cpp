@@ -198,7 +198,7 @@ void RingsApp::createBodies()
 	// create a dynamic torus
 	torusMesh = ci::TriMesh::create(geom::Torus());
 
-	// cinder doesn't create centered toruss so
+	// cinder might not create centered torus so
 	// center it's vertices around the origin *before*
 	// creating the batch
 	MeshOps ops;
@@ -207,13 +207,15 @@ void RingsApp::createBodies()
 	torus = gl::Batch::create(*torusMesh, positionGlsl);
 	torusShadowed = gl::Batch::create(*torusMesh, shadower.shader);
 
-	int bodyCount = 3;
+	int instanceCount = 3;
 #ifdef NDEBUG
-	bodyCount *= 10;
+	instanceCount *= 10;
 #endif
 
 	float offset = 6.0f;
-	for (int i = 0; i < bodyCount; i++)
+
+	// create a torus to instance
+	sourceBody = nullptr;
 	{
 		BodyDesc d;
 		d.bodyType = BodyType::Dynamic;
@@ -230,8 +232,31 @@ void RingsApp::createBodies()
 		st.startTransform = st.worldTransform;
 		st.worldBound = torusMesh->calcBoundingBox(st.worldTransform);
 
-		physics.addBody(torusMesh, d, st);
+		sourceBody = physics.addBody(torusMesh, d, st);
+		offset += 3.0f;
+	}
 
+	// create instances
+	for (int i = 0; i < instanceCount; i++)
+	{
+		BodyDesc d;
+		d.bodyType = BodyType::Dynamic;
+		d.shape = CollisionShape::Composite;
+		d.name = "Torus";
+		d.mass = 10.0f;
+		d.force = vec3(0.0f, -80.0f, 0.0f);
+		d.color = potColors[rand.nextInt(3)];
+
+		SpaceTime st;
+		st.scale = vec3(rand.nextFloat(.5, 2.5));
+		st.modelBound = torusMesh->calcBoundingBox();
+		st.worldTransform = glm::translate(vec3(0.0f, offset, 0.0f));
+		st.startTransform = st.worldTransform;
+		st.worldBound = torusMesh->calcBoundingBox(st.worldTransform);
+
+		PhysicsBodyRef instanceBody = physics.addBody(torusMesh, d, st, true);
+		instanceBody->instancedFrom = sourceBody;
+		
 		offset += 3.0f;
 	}
 }
@@ -259,10 +284,11 @@ void RingsApp::emitBody(const Ray & mouseRay)
 	st.speed = 100.0f;
 	st.direction = glm::normalize(mouseRay.getDirection());
 
-	PhysicsBodyRef pBody = physics.addBody(torusMesh, d, st);
-
+	PhysicsBodyRef instanceBody = physics.addBody(torusMesh, d, st, true);
+	instanceBody->instancedFrom = sourceBody;
+	
 	// remember to set the impulse flag
-	pBody->state.getState() |= PBodyState::HasImpulseApplied;
+	instanceBody->state.getState() |= PBodyState::HasImpulseApplied;
 }
 
 void RingsApp::mouseMove(ci::app::MouseEvent event)

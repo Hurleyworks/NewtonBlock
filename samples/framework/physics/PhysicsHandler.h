@@ -22,7 +22,10 @@ class PhysicsHandler
 
 	void init();
 	
-	PhysicsBodyRef addBody(const ci::TriMeshRef & triMesh, const BodyDesc & bodyDesc, const SpaceTime & st);
+	PhysicsBodyRef addBody(const ci::TriMeshRef & triMesh,
+						   const BodyDesc & bodyDesc,
+						   const SpaceTime & st, 
+						   bool isInstance = false);
 	void removeBody(PhysicsBodyRef & pBody);
 
 	void resetSimulation();

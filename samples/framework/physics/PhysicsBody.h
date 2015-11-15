@@ -36,6 +36,7 @@ class PhysicsBody
 	ci::TriMeshRef triMesh = nullptr;
 	BodyID bodyID = INVALID_BODY_ID;
 	void * userData = nullptr;  // don't delete!
+	PhysicsBodyRef instancedFrom = nullptr;
 
 }; // end class PhysicsBody
 
