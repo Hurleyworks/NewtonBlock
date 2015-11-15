@@ -24,6 +24,7 @@ View::~View ()
 void View::create (WindowRef & ciWindow, PhysicsHandler * const handler)
 {
 	physics = handler;
+	CI_ASSERT(physics && physics->engine());
 
 	try
 	{
@@ -37,11 +38,11 @@ void View::create (WindowRef & ciWindow, PhysicsHandler * const handler)
 		window->setLayout(new GroupLayout());
 
 		Button * b = new Button(window, "Start");
-		b->setCallback([&] { physics->setEngineState(EngineState::Running); });
+		b->setCallback([&] { if (!physics->runSimulation()) postWarningMessage("Please try again!", "All bodies are not ready yet!"); });
 		b = new Button(window, "Pause");
-		b->setCallback([&] { physics->setEngineState(EngineState::Paused);  });
+		b->setCallback([&] { physics->engine()->setEngineState(EngineState::Paused);  });
 		b = new Button(window, "Reset");
-		b->setCallback([&] {physics->setEngineState(EngineState::Reset);   });
+		b->setCallback([&] {physics->resetSimulation(); });
 
 		performLayout(mNVGContext);
 	}

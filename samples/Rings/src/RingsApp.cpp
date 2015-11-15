@@ -23,15 +23,15 @@ void RingsApp::setup()
 {
 	gl::enableVerticalSync(false);
 
-	gui = std::make_shared<View>();
-	gui->create(getWindow(), &physics);
-
 	Rand::randomize();
 
 	try
 	{
 		physics.init();
 		shadower.setup();
+
+		gui = std::make_shared<View>();
+		gui->create(getWindow(), &physics);
 	}
 	catch (std::exception & e)
 	{
@@ -53,7 +53,7 @@ void RingsApp::update()
 {
 	if (!ok) return;
 
-	if (physics.scene()->isEngineRunning())
+	if (physics.engine()->isEngineRunning())
 		physics.engine()->advancePhysics();
 
 	float e = (float)getElapsedSeconds();
@@ -193,7 +193,7 @@ void RingsApp::createBodies()
 	//st.scale = vec3(1);
 	st.worldTransform = glm::translate(vec3(0.0f, -15.0f, 0.0f));
 	st.startTransform = st.worldTransform;
-	physics.addNewBody(staticPole, d, st);
+	physics.addBody(staticPole, d, st);
 
 	// create a dynamic torus
 	torusMesh = ci::TriMesh::create(geom::Torus());
@@ -230,7 +230,7 @@ void RingsApp::createBodies()
 		st.startTransform = st.worldTransform;
 		st.worldBound = torusMesh->calcBoundingBox(st.worldTransform);
 
-		physics.addNewBody(torusMesh, d, st);
+		physics.addBody(torusMesh, d, st);
 
 		offset += 3.0f;
 	}
@@ -242,7 +242,7 @@ void RingsApp::emitBody(const Ray & mouseRay)
 
 	BodyDesc d;
 	d.bodyType = BodyType::Dynamic;
-	d.shape = CollisionShape::ConvexHull;
+	d.shape = CollisionShape::Composite;
 	d.name = DEFAULT_PROJECTILE_NAME;
 	d.mass = 40.0f;
 	d.force = vec3(rand.nextFloat(5.0f, 15.0f));  // anti gravity torus bullets
@@ -259,7 +259,7 @@ void RingsApp::emitBody(const Ray & mouseRay)
 	st.speed = 100.0f;
 	st.direction = glm::normalize(mouseRay.getDirection());
 
-	PhysicsBodyRef pBody = physics.addNewBody(torusMesh, d, st);
+	PhysicsBodyRef pBody = physics.addBody(torusMesh, d, st);
 
 	// remember to set the impulse flag
 	pBody->state.getState() |= PBodyState::HasImpulseApplied;
@@ -281,7 +281,7 @@ void RingsApp::mouseDown(ci::app::MouseEvent event)
 		cameraUI.mouseDown(event.getPos());
 
 	// fire a new torus into the scene on RMB down
-	if (event.isRightDown() && physics.scene()->isEngineRunning())
+	if (event.isRightDown() && physics.engine()->isEngineRunning())
 	{
 		Ray ray = camera.generateRay(mousePos, getWindowSize());
 		emitBody(ray);

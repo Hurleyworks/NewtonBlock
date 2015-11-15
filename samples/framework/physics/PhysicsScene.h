@@ -27,15 +27,12 @@ class PhysicsScene
 	PhysicsScene(const PhysicsScene&) = delete;
 
 	PhysicsBodyRef createPhysicsBody();
-	void processPhysicsBody(PhysicsBodyRef & pBody);
+	void processPhysicsBody(PhysicsBodyRef & pBody, const EngineState engineState);
 	void addToRecycle(PhysicsBodyRef & pBody) { if (pBody) recycled.push_back(pBody); }
 	
+	void reset();
 	void shutdown() {abort = true;}
 	bool getAbort() const { return abort; }
-
-	void setEngineState(EngineState state);
-	const EngineState & getEngineState() const { return engineState; }
-	bool isEngineRunning() const { return engineState == EngineState::Running; }
 
 	PhysicsBodies & getBodies() { return bodies; }
 	const PhysicsBodies & getBodies() const { return bodies; }
@@ -48,14 +45,11 @@ class PhysicsScene
 
  private:
 	NewtonWorld * const world;
-	EngineState engineState = EngineState::Paused;
 	AppListener * listener = nullptr; // Newton owns it, don't delete it!
 	bool abort = false;
 	BodyHandler bodyHandler;
 	PhysicsBodies bodies;
 	ReusableBodies recycled;
-
-	void reset();
 	
 }; // end class PhysicsScene
 

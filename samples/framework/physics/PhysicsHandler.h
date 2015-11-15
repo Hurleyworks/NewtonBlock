@@ -22,10 +22,11 @@ class PhysicsHandler
 
 	void init();
 	
-	PhysicsBodyRef addNewBody(const ci::TriMeshRef & triMesh, const BodyDesc & bodyDesc, const SpaceTime & st);
+	PhysicsBodyRef addBody(const ci::TriMeshRef & triMesh, const BodyDesc & bodyDesc, const SpaceTime & st);
 	void removeBody(PhysicsBodyRef & pBody);
 
-	void setEngineState(EngineState state); 
+	void resetSimulation();
+	bool runSimulation();
 
 	int64_t memoryUsed() { return totalMemoryUsed; }
 

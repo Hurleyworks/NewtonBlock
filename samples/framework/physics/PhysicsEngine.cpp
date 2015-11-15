@@ -10,13 +10,18 @@ PhysicsEngine::PhysicsEngine (NewtonWorld * const world)
 {	
 }
 
-void PhysicsEngine::advancePhysics()
+void PhysicsEngine::advancePhysics(bool async)
 {
 	if (db){__debugbreak();}
 
 	for (unsigned int i = 0; i < substeps_; i++)
 	{
-		NewtonUpdate(world, timeStep_);
+		if (engineState == EngineState::Reset ||
+			engineState == EngineState::Paused ||
+			engineState == EngineState::Invalid)
+			break;
+
+		async ? NewtonUpdateAsync(world, timeStep_) : NewtonUpdate(world, timeStep_);
 	}
 }
 

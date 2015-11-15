@@ -22,11 +22,16 @@ class PhysicsEngine
 	PhysicsEngine & operator=(const PhysicsEngine&) = delete;
 	PhysicsEngine(const PhysicsEngine&) = delete;
 
-	void advancePhysics();
+	void advancePhysics(bool aysnc = false);
 	void debug() { db = true; }
+
+	void setEngineState(EngineState state) { engineState = state; }
+	const EngineState & getEngineState() const { return engineState; }
+	bool isEngineRunning() const { return engineState == EngineState::Running; }
 	
  private:
 	NewtonWorld * const world;
+	EngineState engineState = EngineState::Invalid;
 	bool db = false;
 
 	// timing

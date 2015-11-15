@@ -47,7 +47,7 @@ void PhysicsHandler::init()
 	physicsEngine = PhysicsEngine::create(world);
 }
 
-PhysicsBodyRef PhysicsHandler::addNewBody(const ci::TriMeshRef & triMesh, const BodyDesc & bodyDesc, const SpaceTime & st)
+PhysicsBodyRef PhysicsHandler::addBody(const ci::TriMeshRef & triMesh, const BodyDesc & bodyDesc, const SpaceTime & st)
 {
 	PhysicsBodyRef pBody = physicsScene->createPhysicsBody();
 	pBody->triMesh = triMesh;
@@ -55,9 +55,26 @@ PhysicsBodyRef PhysicsHandler::addNewBody(const ci::TriMeshRef & triMesh, const 
 	pBody->st = st;
 
 	// async call to process body in the physics engine
-	dispatcher.call(&ActiveDispatcher::dispatchBody, pBody, physicsScene);
+	dispatcher.call(&ActiveDispatcher::dispatchBody, pBody, physicsScene, physicsEngine->getEngineState());
 
 	return pBody;
+}
+
+bool PhysicsHandler::runSimulation()
+{
+	// bodies are added to the scene asynchronously 
+	// make sure they are all ready, except  projectiles
+	for (auto & body : physicsScene->getBodies())
+	{
+		if (!body) continue;
+		if (body->desc.name == DEFAULT_BODY_NAME) continue;
+
+		if (!body->state.isReady()) return false;
+	}
+
+	physicsEngine->setEngineState(EngineState::Running);
+
+	return true;
 }
 
 void PhysicsHandler::removeBody(PhysicsBodyRef & pBody)
@@ -76,24 +93,25 @@ void PhysicsHandler::removeBody(PhysicsBodyRef & pBody)
 	physicsScene->addToRecycle(pBody);
 
 	// remove from engine asynchronously
-	dispatcher.call(&ActiveDispatcher::dispatchBody, pBody, physicsScene);
+	dispatcher.call(&ActiveDispatcher::dispatchBody, pBody, physicsScene, physicsEngine->getEngineState());
 }
 
-void PhysicsHandler::setEngineState(EngineState state)
+void PhysicsHandler::resetSimulation()
 {
-	if (!physicsScene) return;
-	
-	if (state == EngineState::Reset)
+	// delete any projectiles since resetting
+	// them does not make sense
+	for (auto & body : physicsScene->getBodies())
 	{
-		// delete any projectiles since resetting them
-		// does not make sense
-		for (auto & body : physicsScene->getBodies())
-		{
-			if (body->desc.name == DEFAULT_PROJECTILE_NAME)
-				removeBody(body);
-		}
+		if (body->desc.name == DEFAULT_PROJECTILE_NAME)
+			removeBody(body);
 	}
-	physicsScene->setEngineState(state);
+
+	physicsScene->reset();
+
+	// Don't set the Engine state to Reset until "after"
+	// the deleted projectiles have been sent to the engine
+	// for processing to ensure they are deleted on Newton's thread
+	physicsEngine->setEngineState(EngineState::Reset);
 }
 
 // physicsAlloc

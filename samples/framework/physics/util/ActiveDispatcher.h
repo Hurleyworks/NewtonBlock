@@ -18,7 +18,7 @@ class ActiveDispatcher
 	// had to add a dummy return type here to work arond weird compiler bug
 	// http://stackoverflow.com/questions/26733430/stdpackaged-task-bug-in-visual-studio
 
-	int dispatchBody(PhysicsBodyRef & body, PhysicsSceneRef & scene);
+	int dispatchBody(PhysicsBodyRef & body, PhysicsSceneRef & scene, const EngineState engineState);
 		/// This call might originate from multiple threads in a thread pool.
 		/// You can add bodies to Newton on different threads but not concurrently,
 		/// so we always add new bodies here using the same Concurrent worker thread

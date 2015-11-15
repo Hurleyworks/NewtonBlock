@@ -187,6 +187,8 @@ NewtonCollision * BodyOps::createCompositeShape(PhysicsBodyRef & pBody)
 	NewtonMesh* const convexApproximation = NewtonMeshApproximateConvexDecomposition(mesh, 0.01f, 0.2f, 256, 100, nullptr, nullptr);
 	if (!convexApproximation) return nullptr;
 
+	NewtonMeshDestroy(mesh);
+
 	// create a compound collision by creation a convex hull of each segment of the source mesh 
 	NewtonCollision* const compound = NewtonCreateCompoundCollisionFromMesh(world, convexApproximation, 0.001f, 0, 0);
 
@@ -208,7 +210,6 @@ NewtonMesh * BodyOps::triMeshToNewtonMesh(const ci::TriMeshRef & triMesh)
 	// newton dVector needs 4 components with last set to 0
 	float * const vertices = new float[pointCount * 4];
 	float * verts = vertices;
-	unsigned index = 0;
 	for (int i = 0; i < pointCount; i++)
 	{
 		for (int j = 0; j < 3; j++)
@@ -254,7 +255,7 @@ NewtonMesh * BodyOps::triMeshToNewtonMesh(const ci::TriMeshRef & triMesh)
 		uv1Index[i] = 0;
 
 	NewtonMeshBuildFromVertexListIndexList(newtonMesh, triCount, faceIndexCount, faceMaterialIndex,
-											vertices, 4 * sizeof(float), &indices[0],
+											vertices, 4 * sizeof(float), indices,
 											dummyNormal, 3 * sizeof(float), normalIndex,
 											dummyV0, 2 * sizeof(float), uv0Index,
 											dummyV1, 2 * sizeof(float), uv1Index);

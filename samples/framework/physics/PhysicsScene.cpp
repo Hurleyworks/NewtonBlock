@@ -47,19 +47,9 @@ PhysicsBodyRef PhysicsScene::createPhysicsBody()
 	return nullptr;
 }
 
-void PhysicsScene::processPhysicsBody(PhysicsBodyRef & pBody)
+void PhysicsScene::processPhysicsBody(PhysicsBodyRef & pBody, const EngineState engineState)
 {
 	bodyHandler.processPhysicsBody(pBody, engineState);
-}
-
-void PhysicsScene::setEngineState(EngineState state)
-{
-	engineState = state;
-
-	if (engineState == EngineState::Reset)
-	{
-		reset();
-	}
 }
 
 void PhysicsScene::reset()

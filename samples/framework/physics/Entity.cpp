@@ -51,7 +51,7 @@ void Entity::destroyBodyCallback(const NewtonBody * newtonBody)
 	PhysicsBody * const pBody = (PhysicsBody*)NewtonBodyGetUserData(newtonBody);
 	if (!pBody) return;
 
-	pBody->userData = nullptr;
+	//pBody->userData = nullptr;
 }
 
 // transformCallback
