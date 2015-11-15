@@ -10,20 +10,21 @@ using namespace ci;
 
 
 // ctor
-View::View ()
-   : nanogui::Screen()
+View::View()
+	: nanogui::Screen()
 {
-   mTheme = new Theme (mNVGContext);
+	mTheme = new Theme(mNVGContext);
 }
 
 // dtor
-View::~View ()
+View::~View()
 {
 }
 
-void View::create (WindowRef & ciWindow, PhysicsHandler * const handler)
+void View::create(WindowRef & ciWindow, PhysicsHandler * const handler)
 {
 	physics = handler;
+	CI_ASSERT(physics && physics->engine());
 
 	try
 	{
@@ -37,11 +38,11 @@ void View::create (WindowRef & ciWindow, PhysicsHandler * const handler)
 		window->setLayout(new GroupLayout());
 
 		Button * b = new Button(window, "Start");
-		b->setCallback([&] { physics->setEngineState(EngineState::Running); });
+		b->setCallback([&] { if (!physics->runSimulation()) postWarningMessage("Please try again!", "All bodies are not ready yet!"); });
 		b = new Button(window, "Pause");
-		b->setCallback([&] { physics->setEngineState(EngineState::Paused);  });
+		b->setCallback([&] { physics->engine()->setEngineState(EngineState::Paused);  });
 		b = new Button(window, "Reset");
-		b->setCallback([&] {physics->setEngineState(EngineState::Reset);   });
+		b->setCallback([&] {physics->resetSimulation(); });
 
 		performLayout(mNVGContext);
 	}
@@ -51,43 +52,43 @@ void View::create (WindowRef & ciWindow, PhysicsHandler * const handler)
 	}
 }
 
-void View::draw (double time)
+void View::draw(double time)
 {
-   drawWidgets();
-   float x = 5;
-   float y = (float)mSize[1] - 40.0f;
-   renderGraph (mNVGContext, x, y, &fps, nvgRGBA (128, 0, 0, 255));
-   renderGraph (mNVGContext, x + 200 + 5, y, &cpuGraph, nvgRGBA (0, 128, 0, 255));
+	drawWidgets();
+	float x = 5;
+	float y = (float)mSize[1] - 40.0f;
+	renderGraph(mNVGContext, x, y, &fps, nvgRGBA(128, 0, 0, 255));
+	renderGraph(mNVGContext, x + 200 + 5, y, &cpuGraph, nvgRGBA(0, 128, 0, 255));
 }
 
-bool View::mouseMove (MouseEvent e)
+bool View::mouseMove(MouseEvent e)
 {
-   return cursorPosCallbackEvent (e.getPos().x, e.getPos().y);
+	return cursorPosCallbackEvent(e.getPos().x, e.getPos().y);
 }
 
-bool View::mouseDown (MouseEvent e)
+bool View::mouseDown(MouseEvent e)
 {
-   if (!e.isLeft()) return false;
-   return mouseButtonCallbackEvent (MOUSE_BUTTON_LEFT, PRESS, 0);
+	if (!e.isLeft()) return false;
+	return mouseButtonCallbackEvent(MOUSE_BUTTON_LEFT, PRESS, 0);
 }
 
-bool View::mouseDrag (MouseEvent e)
+bool View::mouseDrag(MouseEvent e)
 {
-   if (!e.isLeftDown()) return false;
-   return cursorPosCallbackEvent (e.getPos().x, e.getPos().y);
+	if (!e.isLeftDown()) return false;
+	return cursorPosCallbackEvent(e.getPos().x, e.getPos().y);
 }
 
-bool View::mouseUp (MouseEvent e)
+bool View::mouseUp(MouseEvent e)
 {
-   if (!e.isLeft()) return false;
-   return mouseButtonCallbackEvent (MOUSE_BUTTON_LEFT, RELEASE, 0);
+	if (!e.isLeft()) return false;
+	return mouseButtonCallbackEvent(MOUSE_BUTTON_LEFT, RELEASE, 0);
 }
 
 bool View::keyDown(KeyEvent e)
 {
-	if(e.getChar() > 32)
+	if (e.getChar() > 32)
 		charCallbackEvent(e.getChar());
-	return keyCallbackEvent( e.getCode(), 0, PRESS, 0);
+	return keyCallbackEvent(e.getCode(), 0, PRESS, 0);
 }
 
 bool View::keyUp(KeyEvent e)
@@ -95,10 +96,10 @@ bool View::keyUp(KeyEvent e)
 	return keyCallbackEvent(e.getCode(), 0, RELEASE, 0);
 }
 
-void View::updatePerfGraph (float dt, float cpuTime)
+void View::updatePerfGraph(float dt, float cpuTime)
 {
-   updateGraph (&fps, dt);
-   updateGraph (&cpuGraph, cpuTime);
+	updateGraph(&fps, dt);
+	updateGraph(&cpuGraph, cpuTime);
 }
 
 void View::postInfoMessage(const std::string & title, const std::string & msg)
@@ -106,7 +107,7 @@ void View::postInfoMessage(const std::string & title, const std::string & msg)
 	auto dlg = new MessageDialog(this, MessageDialog::Type::Information, title, msg);
 	dlg->setCallback([](int result)
 	{
-		
+
 	});
 }
 
@@ -115,6 +116,6 @@ void View::postWarningMessage(const std::string & title, const std::string & msg
 	auto dlg = new MessageDialog(this, MessageDialog::Type::Warning, title, msg);
 	dlg->setCallback([](int result)
 	{
-		
+
 	});
 }

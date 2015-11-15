@@ -23,15 +23,15 @@ void TeapotsApp::setup()
 {
 	gl::enableVerticalSync(false);
 
-	gui = std::make_shared<View>();
-	gui->create(getWindow(), &physics);
-
 	Rand::randomize();
 
 	try
 	{
 		physics.init();
 		shadower.setup();
+		gui = std::make_shared<View>();
+		gui->create(getWindow(), &physics);
+
 	}
 	catch (std::exception & e)
 	{
@@ -53,7 +53,7 @@ void TeapotsApp::update()
 {
 	if (!ok) return;
 
-	if (physics.scene()->isEngineRunning())
+	if (physics.engine()->isEngineRunning())
 		physics.engine()->advancePhysics();
 
 	float e = (float)getElapsedSeconds();
@@ -192,7 +192,7 @@ void TeapotsApp::createBodies()
 	st.scale = vec3(14);
 	st.worldTransform = glm::translate(vec3(0.0f, -10.0f, 0.0f));
 	st.startTransform = st.worldTransform;
-	physics.addNewBody(staticPot, d, st);
+	physics.addBody(staticPot, d, st);
 
 	// create a dynamic teapot
 	teapotMesh = ci::TriMesh::create(geom::Teapot().subdivisions(6));
@@ -229,7 +229,7 @@ void TeapotsApp::createBodies()
 		st.startTransform = st.worldTransform;
 		st.worldBound = teapotMesh->calcBoundingBox(st.worldTransform);
 
-		physics.addNewBody(teapotMesh, d, st);
+		physics.addBody(teapotMesh, d, st);
 
 		offset += 3.0f;
 	}
@@ -258,7 +258,7 @@ void TeapotsApp::emitBody(const Ray & mouseRay)
 	st.speed = 100.0f;
 	st.direction = glm::normalize(mouseRay.getDirection());
 
-	PhysicsBodyRef pBody = physics.addNewBody(teapotMesh, d, st);
+	PhysicsBodyRef pBody = physics.addBody(teapotMesh, d, st);
 
 	// remember to set the impulse flag
 	pBody->state.getState() |= PBodyState::HasImpulseApplied;
@@ -279,8 +279,8 @@ void TeapotsApp::mouseDown(ci::app::MouseEvent event)
 	if (!usingGui)
 		cameraUI.mouseDown(event.getPos());
 
-	// fire a new teapot into the scene on RMB down
-	if (event.isRightDown() && physics.scene()->isEngineRunning())
+	// fire a new torus into the scene on RMB down
+	if (event.isRightDown() && physics.engine()->isEngineRunning())
 	{
 		Ray ray = camera.generateRay(mousePos, getWindowSize());
 		emitBody(ray);
@@ -301,6 +301,7 @@ void TeapotsApp::mouseUp(ci::app::MouseEvent event)
 	gui->mouseUp(event);
 	usingGui = false;
 }
+
 
 void TeapotsApp::keyDown(KeyEvent event)
 {

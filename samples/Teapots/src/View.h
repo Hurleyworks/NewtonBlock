@@ -15,32 +15,32 @@ using namespace ci::app;
 
 class View : public nanogui::Screen
 {
-   public:
-      View ();
-      ~View ();
+public:
+	View();
+	~View();
 
-      void create (ci::app::WindowRef & ciWindow, PhysicsHandler * const handler );
-      void draw (double time = 0.0);
-      void resize (glm::ivec2 size)
-      {
-         setSize (size);
-      }
+	void create(ci::app::WindowRef & ciWindow, PhysicsHandler * const handler);
+	void draw(double time = 0.0);
+	void resize(glm::ivec2 size)
+	{
+		setSize(size);
+	}
 
-	  void postInfoMessage(const std::string & title, const std::string & msg);
-	  void postWarningMessage(const std::string & title, const std::string & msg);
+	void postInfoMessage(const std::string & title, const std::string & msg);
+	void postWarningMessage(const std::string & title, const std::string & msg);
 
-      bool mouseMove (MouseEvent e);
-      bool mouseDown (MouseEvent e);
-      bool mouseDrag (MouseEvent e);
-      bool mouseUp (MouseEvent e);
-	  bool keyDown(KeyEvent e);
-	  bool keyUp(KeyEvent e);
+	bool mouseMove(MouseEvent e);
+	bool mouseDown(MouseEvent e);
+	bool mouseDrag(MouseEvent e);
+	bool mouseUp(MouseEvent e);
+	bool keyDown(KeyEvent e);
+	bool keyUp(KeyEvent e);
 
-      void updatePerfGraph (float dt, float cpuTime);
+	void updatePerfGraph(float dt, float cpuTime);
 
-   private:
-	  PhysicsHandler * physics = nullptr;
-      PerfGraph fps, cpuGraph, gpuGraph;
-      GPUtimer gpuTimer;
+private:
+	PhysicsHandler * physics = nullptr;
+	PerfGraph fps, cpuGraph, gpuGraph;
+	GPUtimer gpuTimer;
 
 }; // end class View
