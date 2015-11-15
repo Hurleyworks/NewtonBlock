@@ -44,6 +44,7 @@ static const char* CollisionShapeTable[] =
 	"Box",
 	"ConvexHull",
 	"Mesh",
+	"Composite",
 	"Invalid"
 };
 
@@ -55,6 +56,7 @@ struct CollisionShape
 		Box,
 		ConvexHull,
 		Mesh,
+		Composite,
 		Count,
 		Invalid = Count
 	};

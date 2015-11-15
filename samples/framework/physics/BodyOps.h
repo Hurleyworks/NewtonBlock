@@ -20,6 +20,7 @@ class BodyOps
 
 	NewtonCollision * createCollisionShape(PhysicsBodyRef & pBody);
 	NewtonBody * createRigidBody(PhysicsBodyRef & pBody, const dMatrix & startPose, const NewtonCollision * const shape);
+	NewtonMesh * triMeshToNewtonMesh(const ci::TriMeshRef & triMesh);
 
  private:
 	NewtonWorld * const world;
@@ -28,6 +29,7 @@ class BodyOps
 	NewtonCollision * createBallShape(PhysicsBodyRef & pBody);
 	NewtonCollision * createConvexHullShape(PhysicsBodyRef & pBody);
 	NewtonCollision * createStaticMeshShape(PhysicsBodyRef & pBody);
+	NewtonCollision * createCompositeShape(PhysicsBodyRef & pBody);
 
 }; // end class BodyOps
 
