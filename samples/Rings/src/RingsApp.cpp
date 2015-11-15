@@ -190,7 +190,6 @@ void RingsApp::createBodies()
 
 	SpaceTime st;
 	st.modelBound = staticPole->calcBoundingBox();
-	//st.scale = vec3(1);
 	st.worldTransform = glm::translate(vec3(0.0f, -15.0f, 0.0f));
 	st.startTransform = st.worldTransform;
 	physics.addBody(staticPole, d, st);

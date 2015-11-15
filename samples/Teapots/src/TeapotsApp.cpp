@@ -206,13 +206,14 @@ void TeapotsApp::createBodies()
 	teapot = gl::Batch::create(*teapotMesh, positionGlsl);
 	teapotShadowed = gl::Batch::create(*teapotMesh, shadower.shader);
 
-	int bodyCount = 30;
+	int instanceCount = 30;
 #ifdef NDEBUG
-	bodyCount *= 20;
+	instanceCount *= 20;
 #endif
 
 	float offset = 6.0f;
-	for (int i = 0; i < bodyCount; i++)
+	// create a torus to instance
+	sourceBody = nullptr;
 	{
 		BodyDesc d;
 		d.bodyType = BodyType::Dynamic;
@@ -229,7 +230,30 @@ void TeapotsApp::createBodies()
 		st.startTransform = st.worldTransform;
 		st.worldBound = teapotMesh->calcBoundingBox(st.worldTransform);
 
-		physics.addBody(teapotMesh, d, st);
+		sourceBody = physics.addBody(teapotMesh, d, st);
+		offset += 3.0f;
+	}
+
+	// create instances
+	for (int i = 0; i < instanceCount; i++)
+	{
+		BodyDesc d;
+		d.bodyType = BodyType::Dynamic;
+		d.shape = CollisionShape::ConvexHull;
+		d.name = "Teapot";
+		d.mass = 10.0f;
+		d.force = vec3(0.0f, -80.0f, 0.0f);
+		d.color = potColors[rand.nextInt(3)];
+
+		SpaceTime st;
+		st.scale = vec3(rand.nextFloat(.5, 1.5));
+		st.modelBound = teapotMesh->calcBoundingBox();
+		st.worldTransform = glm::translate(vec3(0.0f, offset, 0.0f));
+		st.startTransform = st.worldTransform;
+		st.worldBound = teapotMesh->calcBoundingBox(st.worldTransform);
+
+		PhysicsBodyRef instanceBody = physics.addBody(teapotMesh, d, st, true);
+		instanceBody->instancedFrom = sourceBody;
 
 		offset += 3.0f;
 	}
@@ -258,10 +282,11 @@ void TeapotsApp::emitBody(const Ray & mouseRay)
 	st.speed = 100.0f;
 	st.direction = glm::normalize(mouseRay.getDirection());
 
-	PhysicsBodyRef pBody = physics.addBody(teapotMesh, d, st);
+	PhysicsBodyRef instanceBody = physics.addBody(teapotMesh, d, st, true);
+	instanceBody->instancedFrom = sourceBody;
 
 	// remember to set the impulse flag
-	pBody->state.getState() |= PBodyState::HasImpulseApplied;
+	instanceBody->state.getState() |= PBodyState::HasImpulseApplied;
 }
 
 void TeapotsApp::mouseMove(ci::app::MouseEvent event)
