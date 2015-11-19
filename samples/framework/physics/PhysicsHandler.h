@@ -17,7 +17,7 @@ class PhysicsHandler
 {
 
  public:
-	 PhysicsHandler();
+	 PhysicsHandler() = default;
 	~PhysicsHandler ();
 
 	void init();

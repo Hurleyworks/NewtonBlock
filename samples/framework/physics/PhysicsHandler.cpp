@@ -10,11 +10,6 @@ int64_t PhysicsHandler::totalMemoryUsed = 0;
 
 using namespace ci;
 
-// ctor
-PhysicsHandler::PhysicsHandler()
-{
-}
-
 // dtor
 PhysicsHandler::~PhysicsHandler ()
 {	

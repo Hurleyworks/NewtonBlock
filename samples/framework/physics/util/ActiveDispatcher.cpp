@@ -4,16 +4,6 @@
 
 #include "ActiveDispatcher.h"
 
-// ctor
-ActiveDispatcher::ActiveDispatcher ()
-{	
-}
-
-// dtor
-ActiveDispatcher::~ActiveDispatcher ()
-{	
-}
-
 int ActiveDispatcher::dispatchBody(PhysicsBodyRef & pBody, PhysicsSceneRef & scene, const EngineState engineState)
 {
 	if (!pBody || !scene) return 0;

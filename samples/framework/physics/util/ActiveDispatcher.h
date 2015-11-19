@@ -12,8 +12,8 @@ class ActiveDispatcher
 {
 
  public:
-	ActiveDispatcher ();
-	~ActiveDispatcher ();
+	ActiveDispatcher() = default;
+	~ActiveDispatcher() = default;
 	
 	// had to add a dummy return type here to work arond weird compiler bug
 	// http://stackoverflow.com/questions/26733430/stdpackaged-task-bug-in-visual-studio

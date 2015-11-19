@@ -95,7 +95,7 @@ void BodyHandler::resetPhysicsProperties(PhysicsBodyRef & pBody)
 
 void BodyHandler::onPostPhysicsUpdate(void * const userData, bool abort, float timeStep)
 {
-	// Thsi call comes on Newton's thread
+	// This call comes on Newton's thread
 
 	if (abort) return;
 
@@ -156,7 +156,6 @@ void BodyHandler::processNewBody(PhysicsBodyRef & pBody)
 				NewtonDestroyCollision(collision);
 			}
 			
-
 			// lower the being processed flag
 			if (pBody->state.isBeingProcessed())
 				pBody->state.getState() ^= PBodyState::BeingProcessed;
@@ -190,6 +189,5 @@ void BodyHandler::processBodyRemoval(PhysicsBodyRef & pBody)
 
 	// we're officially reycled
 	pBody->state.getState() |= PBodyState::Recycled;
-
 }
 
