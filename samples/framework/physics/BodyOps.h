@@ -5,8 +5,9 @@
 #pragma once
 
 #include "../../../NewtonAPI.h"
-#include "cinder/Vector.h"
-#include "cinder/Matrix.h"
+#include <cinder/Vector.h>
+#include <cinder/Matrix.h>
+#include <cinder/Ray.h>
 #include "PhysicsBody.h"
 
 class BodyOps
@@ -18,6 +19,7 @@ class BodyOps
 	
 	static bool glmToNewton(const ci::mat4 & transform, dMatrix & pose);
 
+	PhysicsBodyRef pickBody(const ci::Ray & mouseRay);
 	NewtonCollision * createCollisionShape(PhysicsBodyRef & pBody);
 	NewtonBody * createRigidBody(PhysicsBodyRef & pBody, const dMatrix & startPose, const NewtonCollision * const shape);
 	NewtonMesh * triMeshToNewtonMesh(const ci::TriMeshRef & triMesh);

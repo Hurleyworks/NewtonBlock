@@ -20,6 +20,8 @@ class BodyHandler
 	void setBodyPose(PhysicsBodyRef & pBody);
 	void resetPhysicsProperties(PhysicsBodyRef & pBody);
 
+	BodyOps * getOps() { return &ops; }
+
 	// these calls come from Newton's thread!
 	void onPostPhysicsUpdate(void * const userData, bool abort, float timeStep);
 	void onPrePhysicsUpdate(void * const userData, bool abort, float timeStep) {}

@@ -204,6 +204,15 @@ NewtonCollision * BodyOps::createCompositeShape(PhysicsBodyRef & pBody)
 	return compound;
 }
 
+PhysicsBodyRef BodyOps::pickBody(const Ray & mouseRay)
+{
+	vec3 d = mouseRay.getDirection();
+	d *= 1.0e+6f;
+
+	PhysicsBody * hitBody = nullptr;
+	return nullptr;
+}
+
 NewtonMesh * BodyOps::triMeshToNewtonMesh(const ci::TriMeshRef & triMesh)
 {
 	size_t triCount = triMesh->getNumTriangles();

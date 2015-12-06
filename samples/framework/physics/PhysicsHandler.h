@@ -38,8 +38,8 @@ class PhysicsHandler
 	
  private:
 	NewtonWorld * world = nullptr;
-	PhysicsSceneRef physicsScene;
-	PhysicsEngineRef physicsEngine;
+	PhysicsSceneRef physicsScene = nullptr;
+	PhysicsEngineRef physicsEngine = nullptr;
 	concurrent<ActiveDispatcher> dispatcher;
 
 	static int64_t totalMemoryUsed;

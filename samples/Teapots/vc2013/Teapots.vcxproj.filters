@@ -90,6 +90,9 @@
     <ClCompile Include="..\src\View.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\framework\physics\Pick.cpp">
+      <Filter>Source Files\framework\physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="..\src\View.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\framework\physics\Pick.h">
+      <Filter>Source Files\framework\physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

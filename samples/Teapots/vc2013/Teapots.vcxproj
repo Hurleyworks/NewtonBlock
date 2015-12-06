@@ -214,6 +214,7 @@ _WIN32_VER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     <ClCompile Include="..\..\framework\physics\PhysicsEngine.cpp" />
     <ClCompile Include="..\..\framework\physics\PhysicsHandler.cpp" />
     <ClCompile Include="..\..\framework\physics\PhysicsScene.cpp" />
+    <ClCompile Include="..\..\framework\physics\Pick.cpp" />
     <ClCompile Include="..\..\framework\physics\SpaceTime.cpp" />
     <ClCompile Include="..\..\framework\physics\util\ActiveDispatcher.cpp" />
     <ClCompile Include="..\..\framework\physics\util\MeshOps.cpp" />
@@ -236,6 +237,7 @@ _WIN32_VER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     <ClInclude Include="..\..\framework\physics\PhysicsEngine.h" />
     <ClInclude Include="..\..\framework\physics\PhysicsHandler.h" />
     <ClInclude Include="..\..\framework\physics\PhysicsScene.h" />
+    <ClInclude Include="..\..\framework\physics\Pick.h" />
     <ClInclude Include="..\..\framework\physics\SpaceTime.h" />
     <ClInclude Include="..\..\framework\physics\util\ActiveDispatcher.h" />
     <ClInclude Include="..\..\framework\physics\util\Concurrent.h" />

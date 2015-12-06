@@ -39,6 +39,7 @@ class PhysicsScene
 
 	NewtonWorld * getWorld() { return world; }
 	BodyHandler * getBodyHandler() { return &bodyHandler; }
+	BodyOps * getOps() { return bodyHandler.getOps(); }
 
 	static void onPostPhysicsUpdate(void * const userData, float timeStep);
 	static void onPrePhysicsUpdate(void * const userData, float timeStep);
